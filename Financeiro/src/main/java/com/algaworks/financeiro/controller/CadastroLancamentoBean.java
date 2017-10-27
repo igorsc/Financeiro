@@ -7,6 +7,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ValueChangeEvent;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
@@ -63,6 +64,12 @@ public class CadastroLancamentoBean implements Serializable {
 			// TODO: handle finally clause
 			manager.close();
 		}
+	}
+	
+	public void descricaoModificada(ValueChangeEvent event) {
+		System.out.println("Valor antigo: " + event.getOldValue());
+		System.out.println("Novo valor: " + event.getNewValue());
+		FacesContext.getCurrentInstance().renderResponse();
 	}
 	
 
