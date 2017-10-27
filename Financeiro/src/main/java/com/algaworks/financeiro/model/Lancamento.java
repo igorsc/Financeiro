@@ -9,6 +9,8 @@ import javax.validation.constraints.*;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.algaworks.financeiro.validation.*;
+
 
 
 @Entity
@@ -60,8 +62,9 @@ public class Lancamento implements Serializable {
 		this.descricao = descricao;
 	}
 	
-	@NotNull
-	@DecimalMin("0")
+	//@NotNull
+	//@DecimalMin("0")
+	@DecimalPositivo
 	@Column(precision = 10, scale = 2, nullable = false)
 	public BigDecimal getValor() {
 		return valor;
