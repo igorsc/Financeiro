@@ -8,53 +8,40 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import com.algaworks.financeiro.model.Lancamento;
-import com.algaworks.financeiro.repository.Lancamentos;
-import com.algaworks.financeiro.service.CadastroLancamentos;
+import com.algaworks.financeiro.model.Pessoa;
+import com.algaworks.financeiro.repository.Pessoas;
+import com.algaworks.financeiro.service.CadastroPessoas;
 import com.algaworks.financeiro.service.NegocioException;
 
 
 @Named
 @javax.faces.view.ViewScoped
-public class ConsultaLancamentosBean implements Serializable {
+public class ConsultaPessoasBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
 	@Inject
-	private Lancamentos lancamentosRepository;
+	private Pessoas pessoasRepository;
 	
-	private List<Lancamento> lancamentos;
+	private List<Pessoa> pessoas;
 	
 	@Inject
-	private CadastroLancamentos cadastro;
+	private CadastroPessoas cadastro;
 	
-	private Lancamento lancamentoSelecionado;
-
-
+	private Pessoa pessoaSelecionada;
+	
+	
 	public void consultar() {
 		// TODO Auto-generated method stub
 		
-		this.lancamentos=lancamentosRepository.todos();
+		this.pessoas=pessoasRepository.todos();
 		
 	}
-
-	public List<Lancamento> getLancamentos() {
-		return lancamentos;
-	}
 	
-	public Lancamento getLancamentoSelecionado() {
-		return lancamentoSelecionado;
-	}
-
-	public void setLancamentoSelecionado(Lancamento lancamentoSelecionado) {
-		this.lancamentoSelecionado = lancamentoSelecionado;
-	}
-	
-	
-	public void excluir() {
+	public void excluir(){
 		FacesContext context = FacesContext.getCurrentInstance();
 		try {
-			this.cadastro.excluir(this.lancamentoSelecionado);
+			this.cadastro.excluir(this.pessoaSelecionada);
 			this.consultar();
 			context.addMessage(null, new FacesMessage(
 			"Lançamento excluído com sucesso!"));
@@ -64,6 +51,19 @@ public class ConsultaLancamentosBean implements Serializable {
 			context.addMessage(null, mensagem);
 		}
 	}
+
+	public List<Pessoa> getPessoas() {
+		return this.pessoas;
+	}
+	
+	public Pessoa getPessoaSelecionada() {
+		return pessoaSelecionada;
+	}
+
+	public void setPessoaSelecionada(Pessoa pessoaSelecionada) {
+		this.pessoaSelecionada = pessoaSelecionada;
+	}
+
 	
 	
 	

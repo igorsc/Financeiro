@@ -62,8 +62,6 @@ public class Lancamento implements Serializable {
 		this.descricao = descricao;
 	}
 	
-	//@NotNull
-	//@DecimalMin("0")
 	@DecimalPositivo
 	@Column(precision = 10, scale = 2, nullable = false)
 	public BigDecimal getValor() {

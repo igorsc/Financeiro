@@ -3,8 +3,15 @@
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:o="http://omnifaces.org/ui">
 
+	<f:metadata>
+		<o:viewParam name="id"
+			value="#{cadastroPessoaBean.pessoa}" />
+			<f:viewAction action="#{cadastroPessoaBean.prepararCadastro}" />
+	</f:metadata>
 	
 	<ui:define name="titulo">Cadastro de pessoa</ui:define>
 	
@@ -12,23 +19,21 @@
 		<h1>Cadastro de pessoa</h1>
 		<h:form id="frm">
 			
-			<h:messages showDetail="false" showSummary="true" />
+			<p:messages showDetail="false" showSummary="true" autoUpdate="true" />
 			
-			<h:panelGrid columns="2">
+			<p:panelGrid columns="2">
 			
 				
 				
-				<h:outputLabel value="Nome" />
-				<h:inputText size="60"
-				value="#{cadastroPessoaBean.pessoa.nome}"
-				label="Nome" />
+				<p:outputLabel value="Nome" for="nome"/>
+				<p:inputText size="60" id="nome"
+				value="#{cadastroPessoaBean.pessoa.nome}"/>
 				
-				
+				<p:outputLabel/>
+				<p:commandButton value="Salvar"
+				action="#{cadastroPessoaBean.salvar}"  icon="ui-icon-disk" update="@form" />
 			
-				<h:commandButton value="Salvar"
-				action="#{cadastroPessoaBean.salvar}" />
-			
-			</h:panelGrid>
+			</p:panelGrid>
 		
 		</h:form>
 	

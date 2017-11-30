@@ -3,6 +3,7 @@ package com.algaworks.financeiro.repository;
 import java.io.Serializable;
 import java.util.*;
 
+import javax.inject.Inject;
 import javax.persistence.*;
 
 import com.algaworks.financeiro.model.Lancamento;
@@ -16,6 +17,7 @@ public class Lancamentos implements Serializable {
 	
 	private  EntityManager manager;
 	
+	@Inject
 	public Lancamentos (EntityManager manager) {
 		this.manager = manager;
 	}
@@ -27,6 +29,28 @@ public class Lancamentos implements Serializable {
 	
 	public void adicionar(Lancamento lancamento) {
 		this.manager.persist(lancamento);
+	}
+	
+	public List<String> descricoesQueContem(String descricao){
+		TypedQuery<String> query= manager.createQuery("select distinct descricao from Lancamento "
+				+ "where upper(descricao) like upper(:descricao)",
+				String.class);
+		query.setParameter("descricao", "%"+ descricao +"%");
+		
+		return query.getResultList();
+		
+	}
+	
+	public Lancamento guardar(Lancamento lancamento) {
+		return this.manager.merge(lancamento);
+	}
+	
+	public Lancamento porId(Long id) {
+		return manager.find(Lancamento.class, id);
+	}
+	
+	public void remover(Lancamento lancamento) {
+		this.manager.remove(lancamento);
 	}
 
 }
